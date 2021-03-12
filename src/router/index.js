@@ -1,22 +1,63 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import ebeecake from '../views/ebeecake'
+import cake from "../views/cake"
+import food from "../views/food"
+import activity from "../views/activity"
+import prefecture from "../views/prefecture"
+import login from "../views/login"
+import register from "../views/register"
+import detail from "../views/detail"
+import balance from "../views/balance"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'ebeecake',
+    component: ebeecake
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path:'/cake',
+    alias:'/tea',
+    name:'cake',
+    component: cake
+  },
+  {
+    path:'/food',
+    name:'food',
+    component: food
+  },
+  {
+    path:'/activity',
+    name:'activity',
+    component: activity
+  },
+  {
+    path:'/prefecture',
+    name:'prefecture',
+    component: prefecture
+  },
+  {
+    path:'/login',
+    name:'login',
+    component:login
+  },
+  {
+    path:'/register',
+    name:'register',
+    component: register
+  },
+  {
+    path:'/detail',
+    name:'detail',
+    component: detail
+  },
+  {
+    path:'/balance',
+    name:'balance',
+    component: balance
   }
 ]
 
@@ -25,5 +66,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+const VueRouterPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (to) {
+  return VueRouterPush.call(this, to).catch(err => err)
+}
 
 export default router
